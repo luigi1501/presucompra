@@ -1,0 +1,5 @@
+# Excluir el APK de Git (archivo demasiado grande para repositorios).
+# El APK se distribuye directamente desde Netlify o desde GitHub Releases.
+downloads/*.apk
+downloads/*.aab
+

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PresuCompra — Control Financiero de Compras para Venezuela</title>
+  <meta name="description" content="Aplicación móvil nativa para el control de presupuestos y compras en Venezuela. Bimonetaria en USD y Bolívares con tasa BCV en tiempo real, calculadora de pago mixto y 100% offline.">
+  <link rel="icon" type="image/png" href="assets/images/Presucompra-sin-fondo.png">
+
+  <!-- Typography: Plus Jakarta Sans + JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Subtle Ambient Radial Glow for Hero (Strictly Mint Accent) -->
+  <div class="ambient-glow"></div>
+
+  <!-- ── 1. Navbar ────────────────────────────────────────────────────────── -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="brand-link">
+        <img src="assets/images/Presucompra-sin-fondo.png" alt="PresuCompra Logo" class="brand-logo-img">
+        <span class="brand-title">PresuCompra</span>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="#funciones" class="nav-item">Capacidades</a>
+        <a href="#simulador" class="nav-item">Modo Caja</a>
+        <a href="#instalacion" class="nav-item">Instalación</a>
+        <a href="#faq" class="nav-item">FAQ</a>
+      </nav>
+
+      <div class="nav-cta-wrapper">
+        <a href="#descarga" class="btn btn-primary btn-sm">
+          <svg class="btn-icon-sm" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5l-4-4 1.41-1.41L11 13.67V7h2v6.67l2.59-2.58L17 12.5l-5 4z"/>
+          </svg>
+          Descargar APK
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── 2. Hero Section ──────────────────────────────────────────────────── -->
+  <section class="hero-section" id="descarga">
+    <div class="container hero-grid">
+      <div class="hero-text-block">
+        <div class="pill-badge">
+          <span class="pill-dot"></span>
+          <span class="pill-text">Edición Venezuela • Offline-First</span>
+        </div>
+
+        <h1 class="hero-heading">
+          Domina tus compras en <span class="text-mint">Dólares</span> y <span class="text-cyan">Bolívares</span> con precisión milimétrica.
+        </h1>
+
+        <p class="hero-subtext">
+          La primera herramienta de control financiero diseñada para la realidad comercial venezolana. Sincronizada con la tasa oficial del BCV, con calculadora de pago mixto en caja y memoria contra la inflación.
+        </p>
+
+        <!-- CTAs -->
+        <div class="hero-actions">
+          <a href="./downloads/presucompra-v1.0.apk" download="presucompra.apk" class="btn btn-primary btn-lg" id="btn-apk-main">
+            <svg class="btn-icon-lg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.6 9.48l1.84-3.18a.5.5 0 0 0-.87-.5l-1.87 3.24a11.45 11.45 0 0 0-9.4 0L5.43 5.8a.5.5 0 1 0-.87.5L6.4 9.48C2.5 11.66 0 15.53 0 20h24c0-4.47-2.5-8.34-6.4-10.52zM7 15.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/>
+            </svg>
+            <div class="btn-labels">
+              <span class="btn-meta">Android Nativo • Instalación Inmediata</span>
+              <span class="btn-title">Descargar APK Oficial</span>
+            </div>
+          </a>
+
+          <a href="http://127.0.0.1:55570" target="_blank" class="btn btn-secondary btn-lg" title="Abrir en el navegador">
+            <svg class="btn-icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <div class="btn-labels">
+              <span class="btn-meta">Sin Instalación</span>
+              <span class="btn-title">Probar en Web</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Trust Badges (No weight mentioned) -->
+        <div class="trust-strip">
+          <div class="trust-item">
+            <span class="trust-icon">⚡</span>
+            <span>Tasa BCV en Vivo</span>
+          </div>
+          <div class="trust-sep">/</div>
+          <div class="trust-item">
+            <span class="trust-icon">📶</span>
+            <span>Uso 100% Offline</span>
+          </div>
+          <div class="trust-sep">/</div>
+          <div class="trust-item">
+            <span class="trust-icon">🔒</span>
+            <span>Privacidad Total (Sin Registro)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Visual: Floating Brand Core with Mint Neon Glow -->
+      <div class="hero-visual">
+        <div class="brand-orb-container">
+          <div class="brand-orb-ring"></div>
+          <div class="brand-orb-core">
+            <img src="assets/images/Presucompra-sin-fondo.png" alt="PresuCompra App Logo" class="brand-hero-logo">
+          </div>
+          <!-- Floating Status Cards -->
+          <div class="float-metric-card top-right">
+            <span class="float-tag">TASA BCV ACTIVA</span>
+            <span class="float-value mono" id="hero-rate-tag">897,54 Bs./$</span>
+          </div>
+          <div class="float-metric-card bottom-left">
+            <span class="float-tag">MODO CAJA</span>
+            <span class="float-value text-mint">Pago Mixto Exacto</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 3. Pillars / Architecture ────────────────────────────────────────── -->
+  <section class="section" id="funciones">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="section-kicker">PRECISIÓN FINANCIERA</span>
+        <h2 class="section-title">Construida para resolver la complejidad venezolana</h2>
+        <p class="section-lead">Olvídate de calcular mentalmente o perder dinero por el redondeo en las cajas.</p>
+      </div>
+
+      <div class="cards-grid">
+        <!-- Card 1 -->
+        <article class="card">
+          <div class="card-header">
+            <div class="card-icon-frame">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+              </svg>
+            </div>
+            <span class="card-badge">Cero Fricción</span>
+          </div>
+          <h3 class="card-title">Calculadora de Caja y Vuelto Mixto</h3>
+          <p class="card-body">
+            Entrega tus billetes de \$5, \$10 o \$20 y obtén al instante los Bolívares justos a transferir por Pago Móvil o Punto. Copia el monto con un solo toque y dile adiós a los vueltos incompletos.
+          </p>
+          <div class="card-features">
+            <span class="feature-tag">Billetes USD rápidos</span>
+            <span class="feature-tag">Pagar restante exacto</span>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card">
+          <div class="card-header">
+            <div class="card-icon-frame">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+              </svg>
+            </div>
+            <span class="card-badge">Fondo Global</span>
+          </div>
+          <h3 class="card-title">Presupuestos y Categorías Múltiples</h3>
+          <p class="card-body">
+            Define tu presupuesto maestro mensual y divide tu capital en listas independientes: Alimentos, Estudios, Salud o Gastos Personales, con alertas de consumo progresivas.
+          </p>
+          <div class="card-features">
+            <span class="feature-tag">Doble saldo (\$ y Bs.)</span>
+            <span class="feature-tag">Control de topes</span>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card">
+          <div class="card-header">
+            <div class="card-icon-frame">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm5-6H7V9h10v2z"/>
+              </svg>
+            </div>
+            <span class="card-badge">Anti-Inflación</span>
+          </div>
+          <h3 class="card-title">Memoria Inteligente de Precios</h3>
+          <p class="card-body">
+            El sistema recuerda lo que pagaste la última vez por cada artículo y te advierte con un indicador de variación porcentual si el producto subió o bajó en el anaquel.
+          </p>
+          <div class="card-features">
+            <span class="feature-tag">Autocompletado con 1 toque</span>
+            <span class="feature-tag">Comparador histórico</span>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="card">
+          <div class="card-header">
+            <div class="card-icon-frame">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14l4-4h12c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2zm0-3H7V8h10v2z"/>
+              </svg>
+            </div>
+            <span class="card-badge">Auditoría</span>
+          </div>
+          <h3 class="card-title">Finalizar Compra y Archivo Digital</h3>
+          <p class="card-body">
+            Al salir de la tienda, archiva la compra con un toque. Genera un recibo digital congelando la fecha, la tasa de cambio del día y el desglose de productos comprados.
+          </p>
+          <div class="card-features">
+            <span class="feature-tag">Historial completo</span>
+            <span class="feature-tag">Compartir por WhatsApp</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4. Interactive Live Cashier Simulator ────────────────────────────── -->
+  <section class="section simulator-wrapper" id="simulador">
+    <div class="container">
+      <div class="sim-panel">
+        <div class="sim-left">
+          <span class="section-kicker">SIMULADOR EN TIEMPO REAL</span>
+          <h2 class="sim-title">Prueba el Modo Caja ahora mismo</h2>
+          <p class="sim-desc">
+            Prueba cómo reacciona la calculadora antes de instalar la app. Ingresa el monto que te cobra la caja, coloca tus divisas y observa el desglose exacto.
+          </p>
+          <div class="sim-checks">
+            <div class="sim-check-item">
+              <span class="check-bullet">✓</span>
+              <span>Evita vueltos en notas de crédito o golosinas</span>
+            </div>
+            <div class="sim-check-item">
+              <span class="check-bullet">✓</span>
+              <span>Copia el monto exacto para tu aplicación bancaria</span>
+            </div>
+            <div class="sim-check-item">
+              <span class="check-bullet">✓</span>
+              <span>Cero errores de cálculo bajo la presión de la fila</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sim-right">
+          <div class="fintech-terminal">
+            <div class="terminal-bar">
+              <span class="terminal-title">TERMINAL DE PAGO MIXTO</span>
+              <span class="terminal-rate mono">BCV: <strong id="sim-rate-display">897.54 Bs./$</strong></span>
+            </div>
+
+            <div class="terminal-content">
+              <!-- Field 1: Total -->
+              <div class="form-row">
+                <label for="sim-total" class="form-label">TOTAL DE LA CUENTA ($ USD)</label>
+                <div class="input-wrap">
+                  <span class="input-currency">$</span>
+                  <input type="number" id="sim-total" value="35.00" step="0.50" class="mono-input">
+                </div>
+                <span class="form-hint mono" id="sim-total-bs">≈ 31.413,90 Bs.</span>
+              </div>
+
+              <!-- Field 2: Cash USD -->
+              <div class="form-row">
+                <label for="sim-cash" class="form-label">1. EFECTIVO ENTREGADO ($ USD)</label>
+                <div class="input-wrap">
+                  <span class="input-currency">$</span>
+                  <input type="number" id="sim-cash" value="20.00" step="5" class="mono-input">
+                </div>
+                <!-- Quick chips -->
+                <div class="quick-chips">
+                  <button type="button" class="chip" onclick="setSimCash(5)">$5</button>
+                  <button type="button" class="chip" onclick="setSimCash(10)">$10</button>
+                  <button type="button" class="chip active" onclick="setSimCash(20)">$20</button>
+                  <button type="button" class="chip" onclick="setSimCash(50)">$50</button>
+                </div>
+              </div>
+
+              <!-- Field 3: Result Dynamic Card -->
+              <div class="terminal-result-card" id="sim-result-box">
+                <div class="res-label" id="sim-result-title">Restante exacto a transferir:</div>
+                <div class="res-amount mono" id="sim-result-primary">13.463,10 Bs.</div>
+                <div class="res-sub mono" id="sim-result-sub">Equivale a $15.00 USD restantes</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 5. Installation Guide (3 Steps) ──────────────────────────────────── -->
+  <section class="section" id="instalacion">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="section-kicker">INSTALACIÓN DIRECTA</span>
+        <h2 class="section-title">Instala en tu teléfono en 3 simples pasos</h2>
+        <p class="section-lead">Sin necesidad de cuentas complejas. Descarga, confirma y comienza a controlar tu dinero.</p>
+      </div>
+
+      <div class="steps-row">
+        <div class="step-card">
+          <div class="step-num mono">01</div>
+          <h3 class="step-heading">Descarga el APK</h3>
+          <p class="step-info">Pulsa el botón oficial de descarga. El archivo se guardará en tu carpeta de Descargas en segundos.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num mono">02</div>
+          <h3 class="step-heading">Confirma la Instalación</h3>
+          <p class="step-info">Si Android te solicita confirmación de origen, selecciona <strong>"Descargar / Instalar de todos modos"</strong>.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-num mono">03</div>
+          <h3 class="step-heading">Abre el Tour Guiado</h3>
+          <p class="step-info">Al abrir por primera vez, el Tour de Bienvenida te mostrará cómo sacar el máximo provecho a la aplicación.</p>
+        </div>
+      </div>
+
+      <!-- Action Banner -->
+      <div class="action-banner">
+        <div class="banner-text">
+          <h3 class="banner-title">Toma el control absoluto de tus compras hoy</h3>
+          <p class="banner-lead">Descarga PresuCompra de forma gratuita y directa.</p>
+        </div>
+        <div class="banner-cta">
+          <a href="./downloads/presucompra-v1.0.apk" download="presucompra.apk" class="btn btn-primary btn-lg">
+            <svg class="btn-icon-lg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5l-4-4 1.41-1.41L11 13.67V7h2v6.67l2.59-2.58L17 12.5l-5 4z"/>
+            </svg>
+            <div class="btn-labels">
+              <span class="btn-meta">Archivo Oficial Android</span>
+              <span class="btn-title">Descargar PresuCompra</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 6. FAQ Section ───────────────────────────────────────────────────── -->
+  <section class="section" id="faq">
+    <div class="container faq-layout">
+      <div class="section-title-wrap">
+        <span class="section-kicker">RESOLUCIÓN DE DUDAS</span>
+        <h2 class="section-title">Preguntas Frecuentes</h2>
+      </div>
+
+      <div class="faq-group">
+        <details class="faq-box" open>
+          <summary class="faq-summary">
+            <span>¿Es seguro instalar esta aplicación mediante APK?</span>
+            <span class="faq-plus">+</span>
+          </summary>
+          <div class="faq-content">
+            <p><strong>Completamente seguro.</strong> PresuCompra es una aplicación nativa construida con Flutter. No contiene publicidad, no rastrea tu información y almacena toda la base de datos de manera 100% local en tu dispositivo.</p>
+          </div>
+        </details>
+
+        <details class="faq-box">
+          <summary class="faq-summary">
+            <span>¿Requiere conexión a internet dentro del mercado?</span>
+            <span class="faq-plus">+</span>
+          </summary>
+          <div class="faq-content">
+            <p><strong>No.</strong> Es una arquitectura 100% <em>Offline-First</em>. Podrás crear listas, editar precios, calcular pagos en caja y revisar históricos en sótanos o zonas sin señal de telefonía.</p>
+          </div>
+        </details>
+
+        <details class="faq-box">
+          <summary class="faq-summary">
+            <span>¿Puedo ingresar una tasa personalizada si no uso la del BCV?</span>
+            <span class="faq-plus">+</span>
+          </summary>
+          <div class="faq-content">
+            <p><strong>Sí.</strong> En la barra superior de la aplicación puedes consultar la tasa del BCV oficial, pero también tienes la libertad de escribir manualmente cualquier tasa fija que desees.</p>
+          </div>
+        </details>
+
+        <details class="faq-box">
+          <summary class="faq-summary">
+            <span>¿Tiene algún costo o suscripción?</span>
+            <span class="faq-plus">+</span>
+          </summary>
+          <div class="faq-content">
+            <p><strong>Es 100% gratuita.</strong> Diseñada como un aporte práctico para facilitar la economía cotidiana de las familias venezolanas.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 7. Footer ────────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand-side">
+        <div class="footer-logo-row">
+          <img src="assets/images/Presucompra-sin-fondo.png" alt="PresuCompra" class="footer-logo-img">
+          <span class="footer-brand-name">PresuCompra</span>
+        </div>
+        <p class="footer-desc">Control financiero de presupuestos y compras adaptado a Venezuela.</p>
+      </div>
+
+      <div class="footer-nav">
+        <a href="#funciones">Capacidades</a>
+        <a href="#simulador">Modo Caja</a>
+        <a href="#instalacion">Instalación</a>
+        <a href="#descarga">Descarga Directa</a>
+      </div>
+
+      <div class="footer-legal">
+        <span>© 2026 PresuCompra. Todos los derechos reservados.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
