@@ -7,6 +7,9 @@
 </p>
 
 <p align="center">
+  <a href="https://presucompra.netlify.app">
+    <img src="https://img.shields.io/badge/Landing%20Page-presucompra.netlify.app-00FF87?style=for-the-badge&logo=netlify&logoColor=black" alt="Landing Page"/>
+  </a>
   <a href="https://github.com/luigi1501/presucompra/releases/latest">
     <img src="https://img.shields.io/badge/Descargar%20APK-v1.0-00FF87?style=for-the-badge&logo=android&logoColor=black" alt="Descargar APK"/>
   </a>
@@ -103,13 +106,9 @@ flutter build apk --release
 
 ## 🌐 Landing Page
 
-La carpeta `landing/` contiene la página web oficial del proyecto.
+Sitio web oficial en producción: **[presucompra.netlify.app](https://presucompra.netlify.app/)**
 
-Para desplegarla en **Netlify**:
-1. Ve a [app.netlify.com](https://app.netlify.com) → **Add new site → Import existing project**
-2. Conecta este repositorio
-3. **Publish directory:** `landing`
-4. **Build command:** *(dejar vacío)*
+La carpeta `landing/` contiene el código fuente de la página web oficial del proyecto (HTML, CSS y JS puro con simulador bimonetario interactivo).
 
 ---
 
