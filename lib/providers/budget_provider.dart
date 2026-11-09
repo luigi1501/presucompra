@@ -98,7 +98,7 @@ class BudgetProvider extends ChangeNotifier {
     fuente: 'BCV',
     esActiva: true,
   );
-  bool _isLoading = false;
+  bool _isLoading = true;
   String? _error;
 
   /// Query de búsqueda activo (vacío = sin filtro).
@@ -550,14 +550,19 @@ class BudgetProvider extends ChangeNotifier {
 
   Future<void> _initialize() async {
     _isLoading = true;
-    // No llamamos notifyListeners() aquí para evitar un build intermedio vacío
     try {
-      final results = await Future.wait([
+      final dbFuture = Future.wait([
         _db.getAllItems(),
         _db.getActiveRate(),
         _db.getAllBudgets(),
         _db.getAllPurchases(),
       ]).timeout(const Duration(seconds: 2));
+
+      // Pausa estética mínima (1.6s) para que la animación del carrito y el dólar se aprecie al iniciar
+      final splashFuture = Future.delayed(const Duration(milliseconds: 1600));
+
+      final results = await dbFuture;
+      await splashFuture;
 
       _items = results[0] as List<ItemModel>;
       final rate = results[1] as RateModel?;

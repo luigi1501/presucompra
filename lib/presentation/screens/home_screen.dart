@@ -69,13 +69,27 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.backgroundBase,
-      appBar: _buildAppBar(context),
-      body: Consumer<BudgetProvider>(
-        builder: (context, provider, _) => _buildBody(context, provider),
-      ),
-      floatingActionButton: _buildFab(context),
+    return Consumer<BudgetProvider>(
+      builder: (context, provider, _) {
+        if (provider.isLoading) {
+          return const Scaffold(
+            backgroundColor: AppColors.backgroundBase,
+            body: Center(
+              child: CyberCartLoader(
+                size: 80.0,
+                message: 'Iniciando PresuCompra...',
+              ),
+            ),
+          );
+        }
+
+        return Scaffold(
+          backgroundColor: AppColors.backgroundBase,
+          appBar: _buildAppBar(context),
+          body: _buildBody(context, provider),
+          floatingActionButton: _buildFab(context),
+        );
+      },
     );
   }
 
