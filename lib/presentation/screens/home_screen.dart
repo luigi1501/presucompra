@@ -17,6 +17,8 @@ import '../widgets/modals/set_main_budget_modal.dart';
 import '../widgets/modals/purchase_history_modal.dart';
 import '../widgets/modals/budget_distribution_modal.dart';
 import '../widgets/modals/onboarding_tour_modal.dart';
+import '../widgets/modals/update_available_modal.dart';
+import '../../data/datasources/update_service.dart';
 
 /// Pantalla principal de PresuCompra.
 ///
@@ -41,12 +43,64 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
 
-  // Control para abrir el tour guiado solo la primera vez que se monta
+  // Control para abrir el tour guiado y comprobaciones solo la primera vez que se monta
   bool _tourChecked = false;
+  bool _updateChecked = false;
 
-  void _checkFirstTimeTour(BudgetProvider provider) {
-    if (_tourChecked) return;
-    if (!provider.isLoading) {
+  void _checkStartupNotifications(BudgetProvider provider) {
+    if (provider.isLoading) return;
+
+    // 1. Notificación de actualización del dólar BCV
+    if (provider.bcvNotification != null) {
+      final msg = provider.bcvNotification!;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          provider.clearBcvNotification();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Row(
+                children: [
+                  const Icon(Icons.currency_exchange_rounded,
+                      color: AppColors.brand, size: 20),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      msg,
+                      style: const TextStyle(
+                        color: AppColors.textPrimary,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              backgroundColor: AppColors.cardSurface,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+                side: const BorderSide(color: AppColors.cardBorder),
+              ),
+              duration: const Duration(seconds: 4),
+            ),
+          );
+        }
+      });
+    }
+
+    // 2. Modal de nueva versión del APK en GitHub
+    if (!_updateChecked && provider.availableUpdate != null) {
+      _updateChecked = true;
+      final updateInfo = provider.availableUpdate!;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          UpdateAvailableModal.show(context, updateInfo);
+        }
+      });
+    }
+
+    // 3. Tour inicial guiado si no se ha visto
+    if (!_tourChecked) {
       _tourChecked = true;
       if (!provider.hasSeenTour) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -265,6 +319,12 @@ class _HomeScreenState extends State<HomeScreen> {
               color: AppColors.brand,
             ),
             _menuItem(
+              value: 'check_updates',
+              icon: Icons.system_update_rounded,
+              label: 'Buscar Actualizaciones',
+              color: AppColors.accent,
+            ),
+            _menuItem(
               value: 'clear',
               icon: Icons.delete_sweep_outlined,
               label: 'Limpiar lista actual',
@@ -322,8 +382,8 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
 
-    // Verificar si es la primera vez que ingresa para mostrar el Tour Guiado
-    _checkFirstTimeTour(provider);
+    // Verificar notificaciones de tasa BCV, nuevas actualizaciones y Tour Guiado
+    _checkStartupNotifications(provider);
 
     final allItems = provider.items;
     final query = _searchController.text.trim().toLowerCase();
@@ -803,6 +863,32 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     } else if (action == 'tour') {
       OnboardingTourModal.show(context);
+    } else if (action == 'check_updates') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Buscando actualizaciones en GitHub...'),
+          behavior: SnackBarBehavior.floating,
+          duration: Duration(seconds: 2),
+        ),
+      );
+      final info = await UpdateService.checkUpdate();
+      if (!context.mounted) return;
+      if (info != null && info.hasUpdate) {
+        UpdateAvailableModal.show(context, info);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text(
+                '✅ ¡Ya tienes instalada la versión más reciente (v1.0.0)!'),
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: AppColors.cardSurface,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: const BorderSide(color: AppColors.brand),
+            ),
+          ),
+        );
+      }
     } else if (action == 'clear') {
       if (provider.items.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(

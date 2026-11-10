@@ -3,11 +3,13 @@ import 'package:uuid/uuid.dart';
 
 import '../data/datasources/database_helper.dart';
 import '../data/datasources/bcv_service.dart';
+import '../data/datasources/update_service.dart';
 import '../data/models/item_model.dart';
 import '../data/models/rate_model.dart';
 import '../data/models/budget_model.dart';
 import '../data/models/purchase_history_model.dart';
 import '../core/constants/categories.dart';
+import '../core/utils/currency_format.dart';
 
 /// Estado de consumo del presupuesto.
 enum BudgetStatus {
@@ -100,6 +102,24 @@ class BudgetProvider extends ChangeNotifier {
   );
   bool _isLoading = true;
   String? _error;
+
+  /// Información sobre una actualización del APK disponible en GitHub
+  AppUpdateInfo? _availableUpdate;
+  AppUpdateInfo? get availableUpdate => _availableUpdate;
+
+  /// Notificación de actualización del dólar BCV
+  String? _bcvNotification;
+  String? get bcvNotification => _bcvNotification;
+
+  void clearBcvNotification() {
+    _bcvNotification = null;
+    notifyListeners();
+  }
+
+  void dismissUpdate() {
+    _availableUpdate = null;
+    notifyListeners();
+  }
 
   /// Query de búsqueda activo (vacío = sin filtro).
   String _searchQuery = '';
@@ -640,15 +660,32 @@ class BudgetProvider extends ChangeNotifier {
 
   Future<void> _fetchLiveBcvRate() async {
     try {
+      final prevRate = _activeRate?.tasaBsUsd ?? 0.0;
       final result = await BcvService.fetchBcvRate();
       if (result.isSuccess && result.rate > 0) {
+        final fueCambio = (result.rate - prevRate).abs() > 0.01;
         await actualizarTasa(
           tasaBsUsd: result.rate,
           fuente: 'BCV',
         );
+        _bcvNotification = fueCambio
+            ? '🟢 Tasa BCV actualizada: Bs. ${CurrencyFormat.formatBs(result.rate)}'
+            : '⚡ Tasa BCV al día: Bs. ${CurrencyFormat.formatBs(result.rate)}';
+        notifyListeners();
       }
     } catch (e) {
       debugPrint('[BudgetProvider] Error consultando BCV en startup: $e');
+    }
+
+    // Comprobar actualización de app en segundo plano
+    try {
+      final updateInfo = await UpdateService.checkUpdate();
+      if (updateInfo != null && updateInfo.hasUpdate) {
+        _availableUpdate = updateInfo;
+        notifyListeners();
+      }
+    } catch (e) {
+      debugPrint('[BudgetProvider] Error comprobando app update: $e');
     }
   }
 
